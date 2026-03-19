@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Flujo · Finanzas</title>
+<title>KashApp · Finanzas</title>
 <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Display:wght@400;700&family=Google+Sans+Text:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* ─── TOKENS — Black Card Premium ─────────────────────────────────── */
@@ -512,37 +512,113 @@ body {
 .tag-btn-none:hover { border-color: var(--border2); color: var(--text-muted); }
 .tag-btn-none.selected { border-color: var(--border2); background: var(--surface2); color: var(--text-muted); }
 
-/* ─── FLASH FAB (second mobile button) ───────────────────────────── */
-.fab-flash {
-  position: fixed;
-  bottom: calc(var(--nav-h) + var(--safe-b) + 80px);
-  right: 20px;
-  display: none;
-  width: 46px; height: 46px;
-  align-items: center; justify-content: center;
-  background: white;
-  color: var(--card-bg);
-  border: 2px solid var(--card-bg);
-  border-radius: 50%;
-  font-size: 22px; font-weight: 700; line-height: 1;
-  cursor: pointer; z-index: 60;
-  box-shadow: 0 4px 16px rgba(0,0,0,.14);
-  transition: transform .15s, background .13s;
-}
-.fab-flash:active { transform: scale(.92); }
+/* flash fab removed */
 
-/* Desktop flash btn in sidebar footer */
-.sb-flash-btn {
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  width: 100%; padding: 10px 14px;
-  background: var(--surface2); color: var(--text-muted);
-  border: 1.5px solid var(--border2); border-radius: 10px; cursor: pointer;
-  font-family: 'Google Sans Text','Google Sans',sans-serif;
-  font-size: 13px; font-weight: 600;
-  transition: background .14s, color .13s;
+/* sb-flash-btn removed */
+
+/* ─── 2-STEP REGISTRATION MODAL ──────────────────────────────────── */
+.reg-modal {
+  background: var(--bg);
+  border-radius: 20px 20px 0 0;
+  width: 100%; max-width: 500px;
+  animation: slideUp .22s cubic-bezier(.22,.68,0,1.2);
+  overflow: hidden;
 }
-.sb-flash-btn:hover { background: var(--accent-light); color: var(--accent-text); border-color: var(--accent); }
-.sb-flash-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+/* Type row */
+.reg-type-row {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  border-bottom: 1px solid var(--border);
+}
+.reg-type-btn {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 4px; padding: 14px 8px;
+  cursor: pointer; border: none; background: transparent;
+  font-family: 'Google Sans Text','Google Sans',sans-serif;
+  font-size: 13px; font-weight: 600; color: var(--text-muted);
+  transition: background .12s, color .12s;
+  border-right: 1px solid var(--border);
+}
+.reg-type-btn:last-child { border-right: none; }
+.rtype-ico { font-size: 22px; }
+.reg-type-btn.active-inc { background: var(--income-bg); color: var(--income-text); }
+.reg-type-btn.active-exp { background: var(--expense-bg); color: var(--expense-text); }
+.reg-type-btn.active-sav { background: var(--surface2); color: var(--text); }
+
+/* Amount display */
+.reg-display {
+  display: flex; align-items: baseline; justify-content: center;
+  gap: 6px; padding: 20px 22px 12px;
+}
+.reg-currency {
+  font-family: 'Google Sans Display','Google Sans',sans-serif;
+  font-size: 22px; font-weight: 700; color: var(--text-muted);
+}
+.reg-amount {
+  font-family: 'Google Sans Display','Google Sans',sans-serif;
+  font-size: 48px; font-weight: 700; letter-spacing: -2px;
+  color: var(--text); line-height: 1;
+}
+.reg-amount.empty-val { color: var(--text-light); }
+
+/* Actions below numpad */
+.reg-actions {
+  display: grid; grid-template-columns: 1fr auto auto;
+  gap: 8px; padding: 10px 14px 14px; align-items: center;
+}
+.reg-cancel-btn {
+  background: none; border: none; cursor: pointer;
+  font-family: 'Google Sans Text','Google Sans',sans-serif;
+  font-size: 13.5px; font-weight: 500; color: var(--text-muted);
+  padding: 10px 0; text-align: left;
+}
+.reg-cancel-btn:hover { color: var(--text); }
+.reg-flash-btn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 10px 14px; border-radius: 10px;
+  background: var(--surface2); color: var(--text-muted);
+  border: 1.5px solid var(--border2);
+  font-family: 'Google Sans Text','Google Sans',sans-serif;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  transition: all .13s; white-space: nowrap;
+}
+.reg-flash-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+.reg-flash-btn:not(:disabled):hover { background: var(--surface); color: var(--text); border-color: var(--border2); }
+.reg-flash-btn:disabled { opacity: .4; cursor: not-allowed; }
+.reg-next-btn {
+  padding: 10px 18px; border-radius: 10px;
+  background: var(--card-bg); color: white;
+  border: none; cursor: pointer;
+  font-family: 'Google Sans Text','Google Sans',sans-serif;
+  font-size: 13.5px; font-weight: 700;
+  transition: all .13s; white-space: nowrap;
+}
+.reg-next-btn:not(:disabled):hover { background: #2a2a2a; }
+.reg-next-btn:disabled { background: var(--border2); color: var(--text-light); cursor: not-allowed; }
+
+/* Step 2 */
+.reg-step2-head {
+  display: flex; align-items: center; gap: 10px;
+  padding: 4px 16px 16px; border-bottom: 1px solid var(--border);
+}
+.reg-back-btn {
+  width: 34px; height: 34px; border-radius: 8px;
+  border: 1.5px solid var(--border2); background: transparent;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted); flex-shrink: 0; transition: all .13s;
+}
+.reg-back-btn:hover { background: var(--surface2); color: var(--text); }
+.reg-back-btn svg { width: 16px; height: 16px; }
+.reg-step2-title {
+  flex: 1; font-size: 15px; font-weight: 700; color: var(--text);
+  font-family: 'Google Sans Display','Google Sans',sans-serif;
+}
+.reg-step2-amount {
+  font-family: 'Google Sans Display','Google Sans',sans-serif;
+  font-size: 17px; font-weight: 700; color: var(--text);
+  flex-shrink: 0;
+}
+.reg-step2-body { padding: 16px 20px 4px; }
 
 /* ─── FLASH MODAL ─────────────────────────────────────────────────── */
 .flash-modal {
@@ -609,6 +685,96 @@ body {
 .nk.nk-save:disabled { background: var(--border2); color: var(--text-light); cursor: not-allowed; }
 .flash-safe-pad { height: var(--safe-b); background: var(--bg); }
 
+/* ─── RESUMEN PAGE ────────────────────────────────────────────────── */
+.resumen-kpis {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 12px;
+}
+.kpi-card {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px 18px;
+  position: relative; overflow: hidden;
+}
+.kpi-card::after {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px; border-radius: 0 2px 2px 0;
+}
+.kpi-card.kpi-inc::after  { background: var(--income); }
+.kpi-card.kpi-exp::after  { background: var(--expense); }
+.kpi-card.kpi-sav::after  { background: #888; }
+.kpi-card.kpi-bal::after  { background: var(--card-bg); }
+.kpi-lbl { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--text-muted); margin-bottom: 6px; }
+.kpi-val { font-family: 'Google Sans Display','Google Sans',sans-serif; font-size: 20px; font-weight: 700; letter-spacing: -.5px; }
+.kpi-sub { font-size: 11px; color: var(--text-light); margin-top: 3px; }
+
+/* Comparativa */
+.comparativa-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+.comp-card {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 14px 16px;
+}
+.comp-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--text-muted); margin-bottom: 10px; }
+.comp-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.comp-label { font-size: 12px; color: var(--text-muted); }
+.comp-val { font-size: 13px; font-weight: 700; }
+.comp-bar-wrap { height: 6px; background: var(--surface2); border-radius: 3px; margin-top: 6px; overflow: hidden; }
+.comp-bar-fill { height: 100%; border-radius: 3px; transition: width .4s ease; }
+.comp-delta {
+  display: inline-flex; align-items: center; gap: 3px;
+  font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 6px;
+}
+.comp-delta.up   { background: var(--income-bg); color: var(--income-text); }
+.comp-delta.down { background: var(--expense-bg); color: var(--expense-text); }
+.comp-delta.neu  { background: var(--surface2); color: var(--text-muted); }
+
+/* Category bars */
+.category-bars { display: flex; flex-direction: column; gap: 10px; }
+.cat-bar-row { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; }
+.cat-bar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px; }
+.cat-bar-name { font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.cat-bar-amt { font-size: 13px; font-weight: 700; color: var(--expense-text); }
+.cat-bar-track { height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+.cat-bar-fill { height: 100%; border-radius: 3px; background: var(--expense); opacity: .7; transition: width .5s ease; }
+.cat-bar-fill.income { background: var(--income); opacity: .7; }
+
+/* Calendar */
+.cal-wrap {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden; padding: 16px;
+}
+.cal-header {
+  display: grid; grid-template-columns: repeat(7,1fr);
+  text-align: center; margin-bottom: 6px;
+}
+.cal-dow {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .06em; color: var(--text-light); padding: 4px 0;
+}
+.cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 3px; }
+.cal-day {
+  aspect-ratio: 1; border-radius: 8px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 500; cursor: default;
+  position: relative; transition: background .12s;
+}
+.cal-day.empty { opacity: 0; pointer-events: none; }
+.cal-day.today { background: var(--card-bg); color: white; font-weight: 700; }
+.cal-day.has-tx { background: var(--surface2); }
+.cal-day.has-tx:hover { background: var(--surface); }
+.cal-day-num { line-height: 1; }
+.cal-day-dot {
+  width: 4px; height: 4px; border-radius: 50%; margin-top: 2px;
+}
+.cal-day-dot.inc { background: var(--income); }
+.cal-day-dot.exp { background: var(--expense); }
+.cal-day-dot.both {
+  background: linear-gradient(90deg, var(--income) 50%, var(--expense) 50%);
+}
+
+/* ─── RESPONSIVE for resumen ──────────────────────────────────────── */
+html.is-mobile .resumen-kpis { grid-template-columns: 1fr 1fr; gap: 8px; }
+html.is-mobile .comparativa-grid { grid-template-columns: 1fr; }
+html.is-mobile .kpi-val { font-size: 16px; }
+
 /* ─── TOAST ───────────────────────────────────────────────────────── */
 .toast {
   position: fixed;
@@ -628,7 +794,6 @@ html.is-mobile .sidebar       { display: none; }
 html.is-mobile .main          { margin-left: 0; padding-bottom: calc(var(--nav-h) + var(--safe-b)); }
 html.is-mobile .bottom-nav    { display: flex; flex-direction: column; }
 html.is-mobile .fab           { display: flex; }
-html.is-mobile .fab-flash     { display: flex; }
 html.is-mobile .sb-fab-btn    { display: none; }
 html.is-mobile .sb-flash-btn  { display: none; }
 html.is-mobile .pg-head       { padding: 18px 18px 14px; }
@@ -650,7 +815,7 @@ html.is-mobile .toast {
 html.is-desktop .m-only       { display: none; }
 html.is-desktop .d-only       { display: table; }
 html.is-desktop .fab          { display: none; }
-html.is-desktop .fab-flash    { display: none; }
+
 html.is-desktop .bottom-nav   { display: none; }
 html.is-desktop .toast {
   bottom: 24px; left: auto; right: 28px;
@@ -673,7 +838,7 @@ html.is-desktop .toast.show { transform: translateY(0); }
       <div class="logo-mark">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
       </div>
-      Flujo
+      KashApp
     </div>
   </div>
   <nav class="sb-nav">
@@ -695,6 +860,10 @@ html.is-desktop .toast.show { transform: translateY(0); }
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
         Ahorros
       </div>
+      <div class="nav-item" onclick="nav('resumen')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="14" x2="8" y2="18"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="16" y1="14" x2="16" y2="18"/></svg>
+        Resumen
+      </div>
     </div>
     <div class="nav-section">
       <span class="nav-label">Gestión</span>
@@ -709,11 +878,6 @@ html.is-desktop .toast.show { transform: translateY(0); }
     </div>
   </nav>
   <div class="sb-foot">
-    <!-- Desktop flash (quick entry) btn -->
-    <button class="sb-flash-btn" onclick="openFlash()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-      Registro rápido
-    </button>
     <!-- Desktop FAB -->
     <button class="sb-fab-btn" onclick="openTxModal()">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -874,6 +1038,68 @@ html.is-desktop .toast.show { transform: translateY(0); }
     </div>
   </div>
 
+  <!-- ─── RESUMEN ──────────────────────────────────────────────────── -->
+  <div class="page" id="page-resumen">
+    <div class="pg-head" style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <div>
+        <div class="pg-title">Resumen</div>
+        <div class="pg-sub" id="resumenSubtitle">Reporte mensual</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn btn-ghost" onclick="exportCSV()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          CSV
+        </button>
+        <button class="btn btn-primary" onclick="exportPDF()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          PDF
+        </button>
+      </div>
+    </div>
+    <div class="pg-body">
+
+      <!-- Month selector -->
+      <div class="month-nav" style="margin-bottom:20px">
+        <button class="btn btn-ghost" style="padding:6px 10px" onclick="changeResumenMonth(-1)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <span class="month-lbl" id="resumenMonthLbl"></span>
+        <button class="btn btn-ghost" style="padding:6px 10px" onclick="changeResumenMonth(1)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+
+      <!-- KPIs row -->
+      <div id="resumenKpis" class="resumen-kpis"></div>
+
+      <!-- Comparativa vs mes anterior -->
+      <div class="sec-hd" style="margin-top:24px"><span class="sec-title">Comparativa vs mes anterior</span></div>
+      <div id="resumenComparativa" class="comparativa-grid"></div>
+
+      <!-- Barras por categoría -->
+      <div class="sec-hd" style="margin-top:24px"><span class="sec-title">Egresos por etiqueta</span></div>
+      <div id="resumenBars" class="category-bars"></div>
+
+      <!-- Calendario de movimientos -->
+      <div class="sec-hd" style="margin-top:24px"><span class="sec-title">Calendario</span></div>
+      <div id="resumenCalendar" class="cal-wrap"></div>
+
+      <!-- Tabla detalle -->
+      <div class="sec-hd" style="margin-top:24px"><span class="sec-title">Movimientos del mes</span></div>
+      <div class="card-wrap d-only">
+        <table class="tx-tbl"><thead><tr><th>Fecha</th><th>Descripción</th><th>Tipo</th><th>Etiqueta</th><th>Monto</th></tr></thead>
+        <tbody id="resumenTblD"></tbody></table>
+        <div class="empty" id="resumenEmptyD" style="display:none"><div class="empty-ico">📋</div><p>Sin movimientos.</p></div>
+      </div>
+      <div class="card-wrap m-only">
+        <div id="resumenListM"></div>
+        <div class="empty" id="resumenEmptyM" style="display:none"><div class="empty-ico">📋</div><p>Sin movimientos.</p></div>
+      </div>
+
+    </div>
+  </div>
+
+
 </main>
 
 <!-- ─── BOTTOM NAV (mobile) ───────────────────────────────────────── -->
@@ -891,6 +1117,10 @@ html.is-desktop .toast.show { transform: translateY(0); }
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg>
       Egresos
     </div>
+    <div class="bn-item" id="bn-resumen" onclick="nav('resumen')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Resumen
+    </div>
     <div class="bn-item" id="bn-etiquetas" onclick="nav('etiquetas')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
       Etiquetas
@@ -902,9 +1132,6 @@ html.is-desktop .toast.show { transform: translateY(0); }
   </div>
 </nav>
 
-<!-- ─── FLASH FAB (mobile) ─────────────────────────────────────────── -->
-<button class="fab-flash" onclick="openFlash()" title="Registro rápido">⚡</button>
-
 <!-- ─── FAB (mobile) ──────────────────────────────────────────────── -->
 <button class="fab" onclick="openTxModal()">
   <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -913,71 +1140,93 @@ html.is-desktop .toast.show { transform: translateY(0); }
 
 </div><!-- /app -->
 
-<!-- ─── MODAL: TRANSACCIÓN ─────────────────────────────────────────── -->
+<!-- ─── MODAL: NUEVO REGISTRO (2 pasos) ──────────────────────────── -->
 <div class="modal-overlay" id="mTx">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div class="modal-title">Nuevo movimiento</div>
-    <div class="fg"><label class="fl">Descripción</label><input class="fi" id="txDesc" placeholder="ej. Compra en mercado"></div>
-    <div class="fg"><label class="fl">Tipo</label>
-      <select class="fs" id="txType" onchange="updateTagOpts()">
-        <option value="ingreso">💰 Ingreso</option>
-        <option value="egreso">💸 Egreso</option>
-        <option value="ahorro">🏦 Ahorro</option>
-      </select>
-    </div>
-    <div class="fg" id="tagFieldWrap">
-      <label class="fl">Etiqueta</label>
-      <!-- filled by updateTagOpts() — either buttons or a <select> -->
-      <div id="txTagArea"></div>
-    </div>
-    <div class="fg"><label class="fl">Monto</label><input class="fi" id="txAmt" type="number" min="0" step="0.01" placeholder="0.00" inputmode="decimal"></div>
-    <div class="fg"><label class="fl">Fecha</label><input class="fi" id="txDate" type="date"></div>
-    <div class="modal-acts">
-      <button class="btn btn-ghost" onclick="closeM('mTx')">Cancelar</button>
-      <button class="btn btn-primary" onclick="saveTx()">Guardar</button>
-    </div>
-  </div>
-</div>
+  <div class="reg-modal">
 
-<!-- ─── MODAL: REGISTRO RÁPIDO (flash) ────────────────────────────── -->
-<div class="modal-overlay" id="mFlash">
-  <div class="flash-modal">
-    <div class="modal-handle" style="margin-bottom:0"></div>
-    <!-- Type selector -->
-    <div class="flash-type-row">
-      <button class="flash-type-btn active-exp" id="ft-egreso" onclick="flashSetType('egreso')">
-        <span class="ftype-ico">💸</span>Egreso
-      </button>
-      <button class="flash-type-btn" id="ft-ingreso" onclick="flashSetType('ingreso')">
-        <span class="ftype-ico">💰</span>Ingreso
-      </button>
-      <button class="flash-type-btn" id="ft-ahorro" onclick="flashSetType('ahorro')">
-        <span class="ftype-ico">🏦</span>Ahorro
-      </button>
+    <!-- ── PASO 1: Tipo + Numpad ─────────────────────────────────── -->
+    <div id="regStep1">
+      <div class="modal-handle"></div>
+
+      <!-- Tipo selector -->
+      <div class="reg-type-row">
+        <button class="reg-type-btn active-exp" id="rt-egreso" onclick="regSetType('egreso')">
+          <span class="rtype-ico">💸</span>Egreso
+        </button>
+        <button class="reg-type-btn" id="rt-ingreso" onclick="regSetType('ingreso')">
+          <span class="rtype-ico">💰</span>Ingreso
+        </button>
+        <button class="reg-type-btn" id="rt-ahorro" onclick="regSetType('ahorro')">
+          <span class="rtype-ico">🏦</span>Ahorro
+        </button>
+      </div>
+
+      <!-- Amount display -->
+      <div class="reg-display" id="regDisplay">
+        <span class="reg-currency">S/</span>
+        <span class="reg-amount empty-val" id="regAmt">0</span>
+      </div>
+
+      <!-- Numpad -->
+      <div class="numpad">
+        <button class="nk" onclick="regKey('7')">7</button>
+        <button class="nk" onclick="regKey('8')">8</button>
+        <button class="nk" onclick="regKey('9')">9</button>
+        <button class="nk" onclick="regKey('4')">4</button>
+        <button class="nk" onclick="regKey('5')">5</button>
+        <button class="nk" onclick="regKey('6')">6</button>
+        <button class="nk" onclick="regKey('1')">1</button>
+        <button class="nk" onclick="regKey('2')">2</button>
+        <button class="nk" onclick="regKey('3')">3</button>
+        <button class="nk nk-action" onclick="regKey('.')">.</button>
+        <button class="nk" onclick="regKey('0')">0</button>
+        <button class="nk nk-action" onclick="regKey('⌫')">⌫</button>
+      </div>
+
+      <!-- Actions row -->
+      <div class="reg-actions">
+        <button class="reg-cancel-btn" onclick="closeM('mTx')">Cancelar</button>
+        <button class="reg-flash-btn" id="regFlashBtn" onclick="regSaveFlash()" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          Guardar rápido
+        </button>
+        <button class="reg-next-btn" id="regNextBtn" onclick="regGoStep2()" disabled>
+          Detalles →
+        </button>
+      </div>
+      <div class="flash-safe-pad"></div>
     </div>
-    <!-- Amount display -->
-    <div class="flash-display empty-val" id="flashDisplay">0</div>
-    <!-- Numpad -->
-    <div class="numpad">
-      <button class="nk" onclick="flashKey('7')">7</button>
-      <button class="nk" onclick="flashKey('8')">8</button>
-      <button class="nk" onclick="flashKey('9')">9</button>
-      <button class="nk" onclick="flashKey('4')">4</button>
-      <button class="nk" onclick="flashKey('5')">5</button>
-      <button class="nk" onclick="flashKey('6')">6</button>
-      <button class="nk" onclick="flashKey('1')">1</button>
-      <button class="nk" onclick="flashKey('2')">2</button>
-      <button class="nk" onclick="flashKey('3')">3</button>
-      <button class="nk nk-action" onclick="flashKey('.')">.</button>
-      <button class="nk" onclick="flashKey('0')">0</button>
-      <button class="nk nk-action" onclick="flashKey('⌫')">⌫</button>
-      <!-- Save spans full width -->
-      <button class="nk nk-save" id="flashSaveBtn" style="grid-column:1/-1" onclick="flashSave()">
-        Registrar
-      </button>
+
+    <!-- ── PASO 2: Detalles ───────────────────────────────────────── -->
+    <div id="regStep2" style="display:none">
+      <div class="modal-handle"></div>
+      <div class="reg-step2-head">
+        <button class="reg-back-btn" onclick="regGoStep1()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="reg-step2-title">Detalles del registro</div>
+        <div class="reg-step2-amount" id="regStep2Amt"></div>
+      </div>
+
+      <div class="reg-step2-body">
+        <div class="fg"><label class="fl">Descripción</label>
+          <input class="fi" id="txDesc" placeholder="ej. Compra en mercado" autocomplete="off">
+        </div>
+        <div class="fg" id="tagFieldWrap">
+          <label class="fl">Etiqueta</label>
+          <div id="txTagArea"></div>
+        </div>
+        <div class="fg"><label class="fl">Fecha</label>
+          <input class="fi" id="txDate" type="date">
+        </div>
+        <div class="modal-acts">
+          <button class="btn btn-ghost" onclick="closeM('mTx')">Cancelar</button>
+          <button class="btn btn-primary" onclick="saveTx()">Guardar</button>
+        </div>
+      </div>
+      <div class="flash-safe-pad"></div>
     </div>
-    <div class="flash-safe-pad"></div>
+
   </div>
 </div>
 
@@ -1116,7 +1365,7 @@ if (S.accent && /^#?([0-9a-f]{6})$/i.test(S.accent)) {
 setAccent(S.accent);
 
 /* ── NAVIGATION ───────────────────────────────────────────────────── */
-const PAGES = ['inicio','ingresos','egresos','ahorros','etiquetas','fuentes'];
+const PAGES = ['inicio','ingresos','egresos','ahorros','resumen','etiquetas','fuentes'];
 function nav(p) {
   PAGES.forEach(x => document.getElementById('page-'+x).classList.toggle('active', x === p));
   document.querySelectorAll('.nav-item').forEach(n =>
@@ -1129,6 +1378,7 @@ function nav(p) {
   if (p==='ingresos')  renderType('ingreso');
   if (p==='egresos')   renderType('egreso');
   if (p==='ahorros')   renderType('ahorro');
+  if (p==='resumen')   renderResumen();
   if (p==='etiquetas') renderTags();
   if (p==='fuentes')   renderSrcs();
 }
@@ -1280,31 +1530,105 @@ function renderType(type) {
   render2(list, ...m[type]);
 }
 
-/* ── TX CRUD ──────────────────────────────────────────────────────── */
+/* ── 2-STEP REGISTRATION ─────────────────────────────────────────── */
+let regType = 'egreso';
+let regRaw  = '';
+
 function openTxModal(pt) {
-  document.getElementById('txDesc').value = '';
-  document.getElementById('txAmt').value  = '';
-  document.getElementById('txDate').value = new Date().toISOString().split('T')[0];
-  if (pt) document.getElementById('txType').value = pt;
-  updateTagOpts();
+  regRaw  = '';
+  regType = pt || 'egreso';
+  regGoStep1();
+  regUpdateType();
+  regUpdateDisplay();
   document.getElementById('mTx').classList.add('open');
 }
 
-/* Tag field: ≤4 matching tags → pill buttons; >4 → <select> */
-function updateTagOpts() {
-  const type = document.getElementById('txType').value;
-  const tags  = S.tags.filter(t => t.type===type || t.type==='general');
-  const area  = document.getElementById('txTagArea');
+/* ── Step 1 helpers ─────────────────────────────────────────────── */
+function regGoStep1() {
+  document.getElementById('regStep1').style.display = '';
+  document.getElementById('regStep2').style.display = 'none';
+}
 
+function regSetType(t) {
+  regType = t;
+  regUpdateType();
+}
+
+function regUpdateType() {
+  ['egreso','ingreso','ahorro'].forEach(t => {
+    const btn = document.getElementById('rt-'+t);
+    btn.className = 'reg-type-btn';
+    if (t === regType) {
+      btn.classList.add(t==='ingreso'?'active-inc':t==='egreso'?'active-exp':'active-sav');
+    }
+  });
+}
+
+function regKey(k) {
+  if (k === '⌫') {
+    regRaw = regRaw.slice(0, -1);
+  } else if (k === '.') {
+    if (!regRaw.includes('.')) regRaw += '.';
+  } else {
+    if (regRaw.length >= 10) return;
+    const di = regRaw.indexOf('.');
+    if (di !== -1 && regRaw.length - di > 2) return;
+    /* Prevent leading zeros */
+    if (regRaw === '0') { regRaw = k; }
+    else { regRaw += k; }
+  }
+  regUpdateDisplay();
+}
+
+function regUpdateDisplay() {
+  const el   = document.getElementById('regAmt');
+  const val  = parseFloat(regRaw);
+  const ok   = !isNaN(val) && val > 0;
+  el.textContent = (regRaw === '' || regRaw === '.') ? '0' : regRaw;
+  el.className   = ok ? 'reg-amount' : 'reg-amount empty-val';
+  document.getElementById('regFlashBtn').disabled = !ok;
+  document.getElementById('regNextBtn').disabled  = !ok;
+}
+
+/* Flash save from step 1 — no description */
+function regSaveFlash() {
+  const amount = parseFloat(regRaw);
+  if (isNaN(amount) || amount <= 0) return;
+  const label = regType==='ingreso'?'Ingreso rápido':regType==='ahorro'?'Ahorro rápido':'Gasto rápido';
+  const today = new Date().toISOString().split('T')[0];
+  S.transactions.push({ id:'tx_'+Date.now(), desc:label, type:regType, tagId:null, amount, date:today });
+  save(); closeM('mTx'); toast(`${label} guardado ✓`); renderDash();
+}
+
+/* Advance to step 2 */
+function regGoStep2() {
+  const amount = parseFloat(regRaw);
+  if (isNaN(amount) || amount <= 0) return;
+  /* Populate step 2 */
+  const sign   = regType==='ingreso' ? '+' : regType==='ahorro' ? '' : '-';
+  const color  = regType==='ingreso' ? 'var(--income-text)' : regType==='ahorro' ? 'var(--text-muted)' : 'var(--expense-text)';
+  const amtEl  = document.getElementById('regStep2Amt');
+  amtEl.textContent = sign + fmt(amount);
+  amtEl.style.color = color;
+  /* Reset detail fields */
+  document.getElementById('txDesc').value = '';
+  document.getElementById('txDate').value = new Date().toISOString().split('T')[0];
+  updateTagOpts();
+  document.getElementById('regStep1').style.display = 'none';
+  document.getElementById('regStep2').style.display = '';
+}
+
+/* ── Tag field helpers ───────────────────────────────────────────── */
+function updateTagOpts() {
+  const tags = S.tags.filter(t => t.type===regType || t.type==='general');
+  const area = document.getElementById('txTagArea');
   if (tags.length <= 4) {
-    /* Render as clickable pill buttons */
     area.innerHTML = `
       <div class="tag-btn-row" id="tagBtnRow">
         <button type="button" class="tag-btn-none selected" data-id="" onclick="selectTagBtn(this,'')">Sin etiqueta</button>
         ${tags.map(t=>`<button type="button" class="tag-btn" data-id="${t.id}" onclick="selectTagBtn(this,'${t.id}')">${t.emoji} ${t.name}</button>`).join('')}
       </div>`;
   } else {
-    /* Render as <select> */
     area.innerHTML = `
       <select class="fs" id="txTag">
         <option value="">Sin etiqueta</option>
@@ -1314,108 +1638,30 @@ function updateTagOpts() {
 }
 
 function selectTagBtn(el, id) {
-  document.querySelectorAll('#tagBtnRow .tag-btn, #tagBtnRow .tag-btn-none').forEach(b => {
-    b.classList.remove('selected');
-  });
+  document.querySelectorAll('#tagBtnRow .tag-btn, #tagBtnRow .tag-btn-none')
+          .forEach(b => b.classList.remove('selected'));
   el.classList.add('selected');
 }
 
 function getSelectedTagId() {
-  /* Check if we have buttons or select */
   const row = document.getElementById('tagBtnRow');
   if (row) {
     const sel = row.querySelector('.tag-btn.selected, .tag-btn-none.selected');
     return sel ? sel.dataset.id : '';
   }
-  const sel = document.getElementById('txTag');
-  return sel ? sel.value : '';
+  return (document.getElementById('txTag') || {}).value || '';
 }
 
+/* ── Save full record from step 2 ───────────────────────────────── */
 function saveTx() {
   const desc   = document.getElementById('txDesc').value.trim();
-  const amount = parseFloat(document.getElementById('txAmt').value);
+  const amount = parseFloat(regRaw);
   const date   = document.getElementById('txDate').value;
-  const type   = document.getElementById('txType').value;
   const tagId  = getSelectedTagId();
-  if (!desc || isNaN(amount) || amount<=0 || !date) { toast('Completa todos los campos'); return; }
-  S.transactions.push({ id:'tx_'+Date.now(), desc, type, tagId:tagId||null, amount, date });
+  if (!desc) { toast('Escribe una descripción'); return; }
+  if (isNaN(amount) || amount <= 0) { toast('Monto inválido'); return; }
+  S.transactions.push({ id:'tx_'+Date.now(), desc, type:regType, tagId:tagId||null, amount, date });
   save(); closeM('mTx'); toast('Guardado ✓'); renderDash();
-}
-
-/* ── FLASH MODAL ──────────────────────────────────────────────────── */
-let flashType = 'egreso';
-let flashRaw  = '';   /* string of digits */
-
-function openFlash() {
-  flashRaw = '';
-  flashType = 'egreso';
-  updateFlashUI();
-  document.getElementById('mFlash').classList.add('open');
-}
-
-function flashSetType(t) {
-  flashType = t;
-  updateFlashUI();
-}
-
-function flashKey(k) {
-  if (k === '⌫') {
-    flashRaw = flashRaw.slice(0, -1);
-  } else if (k === '.') {
-    if (!flashRaw.includes('.')) flashRaw += '.';
-  } else {
-    /* Max 10 chars total, max 2 decimal places */
-    if (flashRaw.length >= 10) return;
-    const dotIdx = flashRaw.indexOf('.');
-    if (dotIdx !== -1 && flashRaw.length - dotIdx > 2) return;
-    flashRaw += k;
-  }
-  updateFlashDisplay();
-}
-
-function updateFlashDisplay() {
-  const el = document.getElementById('flashDisplay');
-  if (!flashRaw || flashRaw === '.') {
-    el.textContent = '0';
-    el.className = 'flash-display empty-val';
-  } else {
-    el.textContent = flashRaw;
-    el.className = 'flash-display has-value';
-  }
-  const saveBtn = document.getElementById('flashSaveBtn');
-  const v = parseFloat(flashRaw);
-  saveBtn.disabled = isNaN(v) || v <= 0;
-}
-
-function updateFlashUI() {
-  /* type buttons */
-  ['egreso','ingreso','ahorro'].forEach(t => {
-    const btn = document.getElementById('ft-'+t);
-    btn.className = 'flash-type-btn';
-    if (t === flashType) {
-      btn.classList.add(t==='ingreso'?'active-inc':t==='egreso'?'active-exp':'active-sav');
-    }
-  });
-  updateFlashDisplay();
-}
-
-function flashSave() {
-  const amount = parseFloat(flashRaw);
-  if (isNaN(amount) || amount <= 0) { toast('Ingresa un monto'); return; }
-  const today = new Date().toISOString().split('T')[0];
-  const label = flashType==='ingreso'?'Ingreso rápido':flashType==='ahorro'?'Ahorro rápido':'Gasto rápido';
-  S.transactions.push({
-    id: 'fl_'+Date.now(),
-    desc: label,
-    type: flashType,
-    tagId: null,
-    amount,
-    date: today
-  });
-  save();
-  closeM('mFlash');
-  toast(`${label} registrado ✓`);
-  renderDash();
 }
 function delTx(id) {
   S.transactions = S.transactions.filter(t=>t.id!==id);
@@ -1536,6 +1782,284 @@ function toast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'), 2400);
+}
+
+
+/* ── RESUMEN ──────────────────────────────────────────────────────── */
+let resumenMonth = new Date().getMonth();
+let resumenYear  = new Date().getFullYear();
+
+function changeResumenMonth(d) {
+  resumenMonth += d;
+  if (resumenMonth < 0)  { resumenMonth = 11; resumenYear--; }
+  if (resumenMonth > 11) { resumenMonth = 0;  resumenYear++; }
+  renderResumen();
+}
+
+function txInResumenMonth(tx) {
+  const d = new Date(tx.date + 'T12:00:00');
+  return d.getMonth() === resumenMonth && d.getFullYear() === resumenYear;
+}
+function txInPrevMonth(tx) {
+  let pm = resumenMonth - 1, py = resumenYear;
+  if (pm < 0) { pm = 11; py--; }
+  const d = new Date(tx.date + 'T12:00:00');
+  return d.getMonth() === pm && d.getFullYear() === py;
+}
+
+function renderResumen() {
+  if (typeof resumenMonth === 'undefined') { resumenMonth = S.month; resumenYear = S.year; }
+  const lbl = MOS[resumenMonth] + ' ' + resumenYear;
+  document.getElementById('resumenMonthLbl').textContent = lbl;
+  document.getElementById('resumenSubtitle').textContent = 'Reporte — ' + lbl;
+
+  const cur  = S.transactions.filter(txInResumenMonth);
+  const prev = S.transactions.filter(txInPrevMonth);
+
+  const sum = (list, type) => list.filter(t => t.type === type).reduce((s, t) => s + t.amount, 0);
+  const cInc = sum(cur,'ingreso'), cExp = sum(cur,'egreso'), cSav = sum(cur,'ahorro'), cBal = cInc - cExp - cSav;
+  const pInc = sum(prev,'ingreso'), pExp = sum(prev,'egreso'), pSav = sum(prev,'ahorro'), pBal = pInc - pExp - pSav;
+
+  // ── KPIs
+  const delta = (c,p) => {
+    if (p === 0 && c === 0) return null;
+    if (p === 0) return null;
+    return ((c - p) / p * 100).toFixed(1);
+  };
+  const kpiData = [
+    { label:'Ingresos', val: cInc, cls:'kpi-inc', color:'var(--income-text)', d: delta(cInc,pInc) },
+    { label:'Egresos',  val: cExp, cls:'kpi-exp', color:'var(--expense-text)', d: delta(cExp,pExp) },
+    { label:'Ahorros',  val: cSav, cls:'kpi-sav', color:'var(--text)', d: delta(cSav,pSav) },
+    { label:'Balance',  val: cBal, cls:'kpi-bal', color: cBal>=0?'var(--income-text)':'var(--expense-text)', d: null },
+  ];
+  document.getElementById('resumenKpis').innerHTML = kpiData.map(k => `
+    <div class="kpi-card ${k.cls}">
+      <div class="kpi-lbl">${k.label}</div>
+      <div class="kpi-val" style="color:${k.color}">${fmt(k.val)}</div>
+      ${k.d !== null ? `<div class="kpi-sub">${parseFloat(k.d)>=0?'▲':'▼'} ${Math.abs(k.d)}% vs mes ant.</div>` : '<div class="kpi-sub">—</div>'}
+    </div>`).join('');
+
+  // ── Comparativa
+  const maxInc = Math.max(cInc, pInc, 1), maxExp = Math.max(cExp, pExp, 1), maxBal = Math.max(Math.abs(cBal), Math.abs(pBal), 1);
+  const prevLbl = (() => { let pm = resumenMonth-1, py = resumenYear; if(pm<0){pm=11;py--;} return MOS[pm].slice(0,3)+' '+py; })();
+  const compCards = [
+    { title:'Ingresos', items:[{l:'Este mes',v:cInc,pct:cInc/maxInc*100,color:'var(--income)'},{l:prevLbl,v:pInc,pct:pInc/maxInc*100,color:'#86EFAC'}], dtype:'inc' },
+    { title:'Egresos',  items:[{l:'Este mes',v:cExp,pct:cExp/maxExp*100,color:'var(--expense)'},{l:prevLbl,v:pExp,pct:pExp/maxExp*100,color:'#FCA5A5'}], dtype:'exp' },
+    { title:'Balance',  items:[{l:'Este mes',v:cBal,pct:Math.abs(cBal)/maxBal*100,color:cBal>=0?'var(--income)':'var(--expense)'},{l:prevLbl,v:pBal,pct:Math.abs(pBal)/maxBal*100,color:'#D4D4D4'}], dtype:'bal' },
+  ];
+  document.getElementById('resumenComparativa').innerHTML = compCards.map(cc => {
+    const d = delta(cc.items[0].v, cc.items[1].v);
+    const dCls = d === null ? 'neu' : parseFloat(d) > 0 ? (cc.dtype==='exp'?'down':'up') : (cc.dtype==='exp'?'up':'down');
+    const dTxt = d === null ? '—' : (parseFloat(d)>=0?'▲':'▼')+' '+Math.abs(d)+'%';
+    return `<div class="comp-card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <div class="comp-title">${cc.title}</div>
+        <span class="comp-delta ${dCls}">${dTxt}</span>
+      </div>
+      ${cc.items.map(it=>`
+        <div class="comp-row">
+          <div class="comp-label">${it.l}</div>
+          <div class="comp-val">${fmt(it.v)}</div>
+        </div>
+        <div class="comp-bar-wrap"><div class="comp-bar-fill" style="width:${it.pct.toFixed(1)}%;background:${it.color}"></div></div>
+      `).join('')}
+    </div>`;
+  }).join('');
+
+  // ── Category bars (egresos)
+  const tagTotals = {};
+  cur.filter(t => t.type === 'egreso').forEach(tx => {
+    const key = tx.tagId || '__none__';
+    tagTotals[key] = (tagTotals[key] || 0) + tx.amount;
+  });
+  const sortedTags = Object.entries(tagTotals).sort((a,b) => b[1]-a[1]);
+  const maxTag = sortedTags[0]?.[1] || 1;
+  document.getElementById('resumenBars').innerHTML = sortedTags.length
+    ? sortedTags.map(([id,amt]) => {
+        const tag = getTag(id);
+        const name = tag ? (tag.emoji + ' ' + tag.name) : '— Sin etiqueta';
+        const pct = (amt / maxTag * 100).toFixed(1);
+        return `<div class="cat-bar-row">
+          <div class="cat-bar-header">
+            <span class="cat-bar-name">${name}</span>
+            <span class="cat-bar-amt">${fmt(amt)}</span>
+          </div>
+          <div class="cat-bar-track"><div class="cat-bar-fill" style="width:${pct}%"></div></div>
+        </div>`;
+      }).join('')
+    : '<div class="empty"><div class="empty-ico">📊</div><p>Sin egresos este mes.</p></div>';
+
+  // ── Calendar
+  renderCalendar(cur);
+
+  // ── Detail table
+  const sorted = [...cur].sort((a,b) => new Date(a.date)-new Date(b.date));
+  if (!sorted.length) {
+    document.getElementById('resumenTblD').innerHTML = '';
+    document.getElementById('resumenEmptyD').style.display = '';
+    document.getElementById('resumenListM').innerHTML = '';
+    document.getElementById('resumenEmptyM').style.display = '';
+    return;
+  }
+  document.getElementById('resumenEmptyD').style.display = 'none';
+  document.getElementById('resumenEmptyM').style.display = 'none';
+
+  const resumenDRows = sorted.map(tx => {
+    const tag = getTag(tx.tagId);
+    const pill = tag ? `<span class="tag-pill ${tx.type}">${tag.emoji} ${tag.name}</span>` : `<span class="tag-pill ${tx.type}">${tx.type}</span>`;
+    const cls  = tx.type==='ingreso'?'pos': tx.type==='ahorro'?'sav':'neg';
+    const sign = tx.type==='ingreso'?'+': tx.type==='ahorro'?'':'-';
+    const dt   = new Date(tx.date+'T12:00:00').toLocaleDateString('es-PE',{day:'2-digit',month:'short'});
+    const typeLabel = tx.type.charAt(0).toUpperCase() + tx.type.slice(1);
+    return `<tr><td style="color:var(--text-muted);font-size:12px">${dt}</td><td class="tx-desc">${tx.desc}</td><td><span class="tag-pill ${tx.type}">${typeLabel}</span></td><td>${pill}</td><td><span class="tx-amt ${cls}">${sign}${fmt(tx.amount)}</span></td></tr>`;
+  });
+  document.getElementById('resumenTblD').innerHTML = resumenDRows.join('');
+  document.getElementById('resumenListM').innerHTML = sorted.map(mRow).join('');
+}
+
+function renderCalendar(txList) {
+  const year = resumenYear, month = resumenMonth;
+  const firstDay = new Date(year, month, 1).getDay(); // 0=Sun
+  const daysInMonth = new Date(year, month+1, 0).getDate();
+  const today = new Date();
+
+  // Build a map of day → {inc, exp}
+  const dayMap = {};
+  txList.forEach(tx => {
+    const d = new Date(tx.date+'T12:00:00').getDate();
+    if (!dayMap[d]) dayMap[d] = {inc:0, exp:0};
+    if (tx.type === 'ingreso') dayMap[d].inc += tx.amount;
+    if (tx.type === 'egreso')  dayMap[d].exp += tx.amount;
+  });
+
+  const DOWS = ['Do','Lu','Ma','Mi','Ju','Vi','Sá'];
+  let html = `<div class="cal-header">${DOWS.map(d=>`<div class="cal-dow">${d}</div>`).join('')}</div><div class="cal-grid">`;
+
+  // Empty cells for offset
+  for (let i = 0; i < firstDay; i++) html += `<div class="cal-day empty"></div>`;
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const isToday = today.getDate()===d && today.getMonth()===month && today.getFullYear()===year;
+    const data = dayMap[d];
+    let dotHtml = '';
+    if (data) {
+      if (data.inc > 0 && data.exp > 0) dotHtml = '<div class="cal-day-dot both"></div>';
+      else if (data.inc > 0) dotHtml = '<div class="cal-day-dot inc"></div>';
+      else if (data.exp > 0) dotHtml = '<div class="cal-day-dot exp"></div>';
+    }
+    const cls = isToday ? 'cal-day today' : data ? 'cal-day has-tx' : 'cal-day';
+    html += `<div class="${cls}"><div class="cal-day-num">${d}</div>${dotHtml}</div>`;
+  }
+  html += '</div>';
+  document.getElementById('resumenCalendar').innerHTML = html;
+}
+
+/* ── EXPORT CSV ───────────────────────────────────────────────────── */
+function exportCSV() {
+  const cur = S.transactions.filter(txInResumenMonth).sort((a,b) => new Date(a.date)-new Date(b.date));
+  if (!cur.length) { toast('Sin movimientos para exportar'); return; }
+  const header = ['Fecha','Descripción','Tipo','Etiqueta','Monto (PEN)'];
+  const rows = cur.map(tx => {
+    const tag = getTag(tx.tagId);
+    const tagName = tag ? (tag.emoji + ' ' + tag.name) : '';
+    const sign = tx.type === 'egreso' ? '-' : '';
+    return [
+      tx.date,
+      '"' + tx.desc.replace(/"/g,'""') + '"',
+      tx.type.charAt(0).toUpperCase() + tx.type.slice(1),
+      '"' + tagName + '"',
+      sign + tx.amount.toFixed(2)
+    ].join(',');
+  });
+  const csv = [header.join(','), ...rows].join('\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'kashapp_' + MOS[resumenMonth].toLowerCase() + '_' + resumenYear + '.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('CSV descargado ✓');
+}
+
+/* ── EXPORT PDF ───────────────────────────────────────────────────── */
+function exportPDF() {
+  const cur = S.transactions.filter(txInResumenMonth).sort((a,b) => new Date(a.date)-new Date(b.date));
+  const lbl = MOS[resumenMonth] + ' ' + resumenYear;
+  const sum = (list, type) => list.filter(t => t.type === type).reduce((s, t) => s + t.amount, 0);
+  const cInc = sum(cur,'ingreso'), cExp = sum(cur,'egreso'), cSav = sum(cur,'ahorro'), cBal = cInc - cExp - cSav;
+
+  const rows = cur.map(tx => {
+    const tag = getTag(tx.tagId);
+    const tagName = tag ? (tag.emoji + ' ' + tag.name) : '—';
+    const sign = tx.type==='ingreso'?'+': tx.type==='ahorro'?'':'-';
+    const color = tx.type==='ingreso'?'#14532D': tx.type==='egreso'?'#7F1D1D':'#525252';
+    const dt = new Date(tx.date+'T12:00:00').toLocaleDateString('es-PE',{day:'2-digit',month:'short'});
+    return `<tr>
+      <td>${dt}</td>
+      <td>${tx.desc}</td>
+      <td style="text-transform:capitalize">${tx.type}</td>
+      <td>${tagName}</td>
+      <td style="text-align:right;font-weight:700;color:${color}">${sign}${parseFloat(tx.amount).toFixed(2)}</td>
+    </tr>`;
+  }).join('');
+
+  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8">
+  <style>
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #111; background: #fff; padding: 32px; }
+    .header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:28px; }
+    .logo-block { display:flex; align-items:center; gap:12px; }
+    .logo-mark { width:36px; height:36px; background:#111; border-radius:10px; display:flex; align-items:center; justify-content:center; }
+    .logo-mark svg { width:20px; height:20px; stroke:white; fill:none; stroke-width:2.5; }
+    .logo-name { font-size:22px; font-weight:800; color:#111; letter-spacing:-0.5px; }
+    .logo-sub { font-size:12px; color:#888; margin-top:2px; }
+    .report-title { text-align:right; }
+    .report-title h2 { font-size:16px; font-weight:700; color:#111; }
+    .report-title p { font-size:12px; color:#888; margin-top:2px; }
+    .kpi-row { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:24px; }
+    .kpi { background:#F4F4F4; border-radius:10px; padding:14px 16px; }
+    .kpi-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:#888; margin-bottom:4px; }
+    .kpi-value { font-size:18px; font-weight:800; }
+    .kpi-value.inc { color:#14532D; } .kpi-value.exp { color:#7F1D1D; } .kpi-value.neu { color:#525252; } .kpi-value.bal { color:${cBal>=0?'#14532D':'#7F1D1D'}; }
+    table { width:100%; border-collapse:collapse; margin-top:0; }
+    thead tr { background:#111; color:white; }
+    thead th { padding:9px 12px; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; text-align:left; }
+    tbody tr:nth-child(even) { background:#F8F8F8; }
+    tbody td { padding:9px 12px; font-size:12.5px; border-bottom:1px solid #E5E5E5; }
+    .section-title { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:#888; margin:20px 0 10px; }
+    .footer { margin-top:28px; text-align:center; font-size:11px; color:#bbb; border-top:1px solid #E5E5E5; padding-top:14px; }
+  </style></head><body>
+  <div class="header">
+    <div class="logo-block">
+      <div class="logo-mark"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+      <div><div class="logo-name">KashApp</div><div class="logo-sub">Finanzas Personales</div></div>
+    </div>
+    <div class="report-title">
+      <h2>Reporte Mensual</h2>
+      <p>${lbl}</p>
+      <p style="margin-top:2px">Generado el ${new Date().toLocaleDateString('es-PE',{day:'2-digit',month:'long',year:'numeric'})}</p>
+    </div>
+  </div>
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-label">Ingresos</div><div class="kpi-value inc">${fmt(cInc)}</div></div>
+    <div class="kpi"><div class="kpi-label">Egresos</div><div class="kpi-value exp">${fmt(cExp)}</div></div>
+    <div class="kpi"><div class="kpi-label">Ahorros</div><div class="kpi-value neu">${fmt(cSav)}</div></div>
+    <div class="kpi"><div class="kpi-label">Balance</div><div class="kpi-value bal">${fmt(cBal)}</div></div>
+  </div>
+  <div class="section-title">Movimientos — ${cur.length} registros</div>
+  <table>
+    <thead><tr><th>Fecha</th><th>Descripción</th><th>Tipo</th><th>Etiqueta</th><th style="text-align:right">Monto</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table>
+  <div class="footer">KashApp · Reporte generado automáticamente · ${lbl}</div>
+  </body></html>`;
+
+  const win = window.open('', '_blank');
+  win.document.write(html);
+  win.document.close();
+  setTimeout(() => { win.print(); }, 400);
+  toast('PDF listo para imprimir ✓');
 }
 
 /* ── INIT ─────────────────────────────────────────────────────────── */
